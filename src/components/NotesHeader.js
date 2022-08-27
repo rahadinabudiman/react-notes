@@ -1,14 +1,11 @@
 import React from "react";
+import NotesSearch from "./NotesSearch";
 
-function NotesHeader() {
+function NotesHeader({ search, onSearch }) {
   return (
     <div className="note-app__header">
-      <h1 className="note-input__title"> R4HA Notes </h1>{" "}
-      <input
-        type="text"
-        className="note-app"
-        placeholder="Masukan Judul Catatan......"
-      />
+      <h1 className="note-input__title"> R4HA Notes </h1>
+      <NotesSearch search={search} onSearch={onSearch} />
     </div>
   );
 }

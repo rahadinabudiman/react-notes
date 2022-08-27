@@ -3,7 +3,15 @@ import NotesItemContent from "./NotesItemContent";
 import NotesAction from "./NotesAction";
 import { showFormattedDate } from "../assets/utils/index";
 
-function NotesItem({ id, title, body, createdAt, onDelete, onArchive }) {
+function NotesItem({
+  id,
+  title,
+  body,
+  archived,
+  createdAt,
+  onDelete,
+  onArchive,
+}) {
   return (
     <div className="note-item">
       <NotesItemContent
@@ -12,7 +20,12 @@ function NotesItem({ id, title, body, createdAt, onDelete, onArchive }) {
         body={body}
         createdAt={showFormattedDate(createdAt)}
       />
-      <NotesAction id={id} onDelete={onDelete} onArchive={onArchive} />
+      <NotesAction
+        id={id}
+        onDelete={onDelete}
+        onArchive={onArchive}
+        archived={archived}
+      />
     </div>
   );
 }
