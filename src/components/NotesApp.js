@@ -1,6 +1,7 @@
 import React from "react";
 import NotesHeader from "./NotesHeader";
 import NotesBody from "./NotesBody";
+import ArchiveList from "./ArchiveList";
 import { getInitialData } from "../assets/utils/index";
 
 class NotesApp extends React.Component {
@@ -13,6 +14,8 @@ class NotesApp extends React.Component {
 
     this.onDeleteHandler = this.onDeleteHandler.bind(this);
     this.onAddNotesHandler = this.onAddNotesHandler.bind(this);
+    this.onArchiveHandler = this.onArchiveHandler.bind(this);
+    this.onArchivedHandler = this.onArchivedHandler.bind(this);
   }
 
   onAddNotesHandler({ id, title, body, createdAt, archived }) {
@@ -38,14 +41,41 @@ class NotesApp extends React.Component {
       notes,
     });
   }
+
+  onArchiveHandler(id) {
+    const notes = this.state.notes.map((note) => {
+      if (note.id === id) {
+        note.archived = true;
+      }
+      return note;
+    });
+    this.setState({ notes });
+  }
+
+  onArchivedHandler(id) {
+    const notes = this.state.notes.map((note) => {
+      if (note.id === id) {
+        note.archived = false;
+      }
+      return note;
+    });
+    this.setState({ notes });
+  }
+
   render() {
     return (
       <div className="note-app">
         <NotesHeader />
         <NotesBody
-          notes={this.state.notes}
+          notes={this.state.notes.filter((note) => note.archived === false)}
           onDelete={this.onDeleteHandler}
           addNote={this.onAddNotesHandler}
+          onArchive={this.onArchiveHandler}
+        />
+        <ArchiveList
+          notes={this.state.notes.filter((note) => note.archived === true)}
+          onDelete={this.onDeleteHandler}
+          onArchive={this.onArchivedHandler}
         />
       </div>
     );
